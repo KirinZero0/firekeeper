@@ -22,7 +22,7 @@ def handle_command(command, context_manager):
     command = command.lower()
 
     try:
-        if re.search(r"(chat|gpt).*", command):
+        if re.search(r"(chatgpt|chat gpt).*", command):
             logging.info(f"Command matches ChatGPT: {command}")
             return open_chrome_to_chatgpt(context_manager, command)
         elif re.search(r"(turn off my pc).*", command):
@@ -35,7 +35,7 @@ def handle_command(command, context_manager):
             logging.info(f"Command matches system status: {command}")
             return check_system_status(context_manager, command)
         else:
-            logging.info(f"Unknown command, Sending to Gpt: {command}")
+            logging.info(f"Chat Initiated, Sending to Gpt: {command}")
             return get_firekeeper_response(context_manager, command) 
     except Exception as e:
         logging.error(f"Error in processing command '{command}': {str(e)}")
