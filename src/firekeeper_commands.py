@@ -24,13 +24,13 @@ def handle_command(command, context_manager):
     try:
         if re.search(r"(chat|gpt).*", command):
             logging.info(f"Command matches ChatGPT: {command}")
-            return open_chrome_to_chatgpt()
+            return open_chrome_to_chatgpt(context_manager, command)
         elif re.search(r"(turn off my pc).*", command):
             logging.info(f"Command matches turn off: {command}")
             return shutdown_pc(context_manager, command)
         elif re.search(r"(spotify).*", command):
             logging.info(f"Command matches Spotify: {command}")
-            return play_music()
+            return play_music(context_manager, command)
         elif re.search(r"(system status).*", command):
             logging.info(f"Command matches system status: {command}")
             return check_system_status(context_manager, command)

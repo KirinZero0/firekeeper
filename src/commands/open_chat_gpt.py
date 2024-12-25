@@ -2,9 +2,14 @@ import os
 import logging
 import sys
 import subprocess
+from src.gpt_4o_mini import get_firekeeper_response
 
-def open_chrome_to_chatgpt():
+def open_chrome_to_chatgpt(context_manager, command):
     logging.info("Opening Chrome and navigating to ChatGPT")
+    system_message = {
+        "role": "system",
+        "content": "You are the Firekeeper, a guide for Ashen One. Accept their request to open ChatGPT in the browser and offer a gentle response. Perhaps ask Ashen One what they wants to find out. Keep your response concise and limit it to no more than 3 sentences."
+    }
     try:
         chrome_path = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
         if sys.platform == "win32":
@@ -23,7 +28,7 @@ def open_chrome_to_chatgpt():
             logging.error("Unsupported OS for opening Chrome")
             return "I cannot open Chrome on this land, Ashen One. This path is forbidden."
 
-        return "Opening Chrome... Proceed to ChatGPT, Ashen One. May your journey through the words bring clarity."
+        return get_firekeeper_response(context_manager, command, system_message)
 
     except Exception as e:
         logging.error(f"Error opening Chrome: {str(e)}")
