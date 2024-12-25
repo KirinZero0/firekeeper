@@ -13,14 +13,16 @@ def load_api_key():
         keys = json.load(file)
     return keys["openai_api_key"]
 
-def get_firekeeper_response(context_manager, prompt, max_tokens=100):
+def get_firekeeper_response(context_manager, prompt, system_message=None, max_tokens=100):
     """Generates a response in the style of Firekeeper using GPT-4."""
+    if system_message is None:
+        system_message = {
+            "role": "system",
+            "content": "You are the Firekeeper, a mystical guide for Ashen One. Answer like the Firekeeper from Dark Souls 3. Keep your responses concise, no more than 3 sentences, unless the user asks for complete information."
+        }
+
+
     context = context_manager.format_context_for_api()
-    
-    system_message = {
-        "role": "system",
-        "content": "You are the Firekeeper, a mystical guide for Ashen One. Answer like the Firekeeper from Dark Souls 3. Keep your responses concise, no more than 3 sentences, unless the user asks for complete information."
-    }
     context.append({"role": "user", "content": prompt})
 
     context.insert(0, system_message)
