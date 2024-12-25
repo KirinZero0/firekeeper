@@ -1,5 +1,5 @@
 /config/api_keys.json
 /data
 /logs
-/_pycache_
+/__pycache__
 /src/__pycache__
